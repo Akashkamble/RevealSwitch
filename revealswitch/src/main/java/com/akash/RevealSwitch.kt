@@ -9,7 +9,6 @@ import android.graphics.PorterDuff
 import android.support.annotation.ColorInt
 import android.support.annotation.IntRange
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import android.view.ViewAnimationUtils
 import android.widget.FrameLayout
@@ -77,16 +76,18 @@ class RevealSwitch @JvmOverloads constructor(
     }
 
     fun setDisabledTrackColor(@ColorInt trackColor: Int) {
+        disabledTrackColor = trackColor
         unCheckedView.background.setColorFilter(trackColor, PorterDuff.Mode.SRC_ATOP)
         checkedThumb.background.setColorFilter(trackColor, PorterDuff.Mode.SRC_ATOP)
     }
 
     fun setEnabledTrackColor(@ColorInt trackColor: Int) {
+        enabledTrackColor = trackColor
         checkedView.background.setColorFilter(trackColor, PorterDuff.Mode.SRC_ATOP)
         unCheckedThumb.background.setColorFilter(trackColor, PorterDuff.Mode.SRC_ATOP)
     }
 
-    fun setToggleListner(onToggleListener: OnToggleListener) {
+    fun setToggleListener(onToggleListener: OnToggleListener) {
         clickable.setOnClickListener {
             if (isEnable) {
                 onToggleListener.onToggle(false)
@@ -99,10 +100,8 @@ class RevealSwitch @JvmOverloads constructor(
     }
 
     private fun revealEnableTrackAnimation() {
-        Log.e("RevealSwitch","enable")
         isEnable = true
         unCheckedView.visibility = View.INVISIBLE
-//        checkedView.background.setColorFilter(disabledTrackColor,PorterDuff.Mode.SRC_ATOP)
         revealSwitchContainer.background.setColorFilter(disabledTrackColor, PorterDuff.Mode.SRC_ATOP)
         checkedView.visibility = View.VISIBLE
         val x: Int = unCheckedThumb.left + unCheckedThumb.width / 2
@@ -122,7 +121,6 @@ class RevealSwitch @JvmOverloads constructor(
             }
 
             override fun onAnimationStart(animation: Animator?) {
-//                unCheckedView.visibility = View.INVISIBLE
             }
 
             override fun onAnimationEnd(animation: Animator?) {
@@ -134,7 +132,7 @@ class RevealSwitch @JvmOverloads constructor(
     private fun revealDisableTrackAnimation() {
         isEnable = false
         checkedView.visibility = View.INVISIBLE
-//        revealSwitchContainer.background.setColorFilter(enabledTrackColor, PorterDuff.Mode.SRC_ATOP)
+        revealSwitchContainer.background.setColorFilter(enabledTrackColor, PorterDuff.Mode.SRC_ATOP)
         unCheckedView.visibility = View.VISIBLE
         val x: Int = checkedThumb.right - checkedThumb.width / 2
         val y: Int = revealSwitchContainer.height / 2
@@ -162,7 +160,8 @@ class RevealSwitch @JvmOverloads constructor(
         })
     }
 
-    private fun setEnable(isEnable: Boolean) {
+    fun setEnable(isChecked: Boolean) {
+        isEnable = isChecked
         if (isEnable) {
             unCheckedView.visibility = View.INVISIBLE
         } else {

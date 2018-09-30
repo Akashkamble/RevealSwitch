@@ -5,13 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@android:color/black">
+    android:background="@android:color/darker_gray">
 
     <com.akash.RevealSwitch
         android:id="@+id/revealSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:setAnimationDuration="1200"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
