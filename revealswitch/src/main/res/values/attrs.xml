@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RevealSwitch">
+        <attr name="setEnabled" format="boolean"/>
+        <attr name="setEnabledTrackColor" format="color"/>
+        <attr name="setDisabledTrackColor" format="color"/>
+        <attr name="setAnimationDuration" format="integer"/>
+    </declare-styleable>
+</resources>

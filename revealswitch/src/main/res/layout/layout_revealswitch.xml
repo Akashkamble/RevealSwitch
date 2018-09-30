@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/revealSwitch_Container"
+    android:layout_width="60dp"
+    android:layout_height="32dp"
+    android:background="@drawable/switch_background">
+
+    <View
+        android:id="@+id/checkedView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/switch_background"
+        tools:backgroundTint="#444444"/>
+
+    <View
+        android:id="@+id/unCheckedView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/switch_background"
+        tools:backgroundTint="@android:color/white"/>
+
+    <View
+        android:id="@+id/unCheckedThumb"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="7dp"
+        android:background="@drawable/switch_background"
+        tools:backgroundTint="#444444" />
+
+    <View
+        android:id="@+id/checkedThumb"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_gravity="end|center_vertical"
+        android:layout_marginEnd="7dp"
+        android:background="@drawable/switch_background"
+        tools:backgroundTint="@android:color/white"/>
+
+    <View
+        android:id="@+id/clickable"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+</FrameLayout>
