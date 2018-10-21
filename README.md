@@ -1,4 +1,5 @@
-# RevealSwitch
+# RevealSwitch  
+[![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-RevealSwitch-green.svg?style=flat )]( https://android-arsenal.com/details/1/7166 )
 
 ### This library provides you cool reveal animation on toggle.
 
@@ -23,7 +24,7 @@ allprojects {
  
  ```
  dependencies {
-   implementation 'com.github.Akashkamble:RevealSwitch:1.0.0'
+   implementation 'com.github.Akashkamble:RevealSwitch:1.0.1'
 }
 ```  
 ## Usage
@@ -92,6 +93,26 @@ Add this in Kotlin or Java
 
 ``` Kotlin
 switch.setAnimationDuration(700) //Accepts value between 500ms to 1500ms
+```
+
+## Added in version 1.0.1
+
+__To show the border__ (default __false__)
+
+Add this line in your layout file.
+
+```xml
+app:showBorder="true"
+```
+
+Default border color will be thumb color.
+
+__To set borer color__
+
+Add this line in xml
+
+```xml
+app:borderColor="#FF1744"
 ```
 
         
