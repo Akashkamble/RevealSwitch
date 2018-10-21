@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.res.TypedArray
 import android.graphics.Color
 import android.graphics.PorterDuff
+import android.graphics.drawable.GradientDrawable
 import android.support.annotation.ColorInt
 import android.support.annotation.IntRange
 import android.util.AttributeSet
@@ -25,11 +26,14 @@ class RevealSwitch @JvmOverloads constructor(
     private lateinit var clickable: View
     private lateinit var revealSwitchContainer: FrameLayout
     private var isEnable: Boolean = false
+    private lateinit var border: GradientDrawable
+    private var isborderEnabled: Boolean = false
     private lateinit var typedArray: TypedArray
 
     private var enabledTrackColor: Int = Color.parseColor("#444444")
     private var disabledTrackColor: Int = Color.parseColor("#FFFFFF")
     private var animDuration: Int = 500
+    private var borderColor: Int? = null
 
     init {
         View.inflate(context, R.layout.layout_revealswitch, this).apply {
@@ -39,6 +43,7 @@ class RevealSwitch @JvmOverloads constructor(
             checkedThumb = findViewById<View>(R.id.checkedThumb)
             clickable = findViewById(R.id.clickable)
             revealSwitchContainer = findViewById(R.id.revealSwitch_Container)
+            border = clickable.background as GradientDrawable
             getAttributeSet(context, attrs)
 
         }
@@ -51,11 +56,17 @@ class RevealSwitch @JvmOverloads constructor(
         disabledTrackColor = typedArray.getColor(R.styleable.RevealSwitch_setDisabledTrackColor,
                 Color.parseColor("#FFFFFF"))
         isEnable = typedArray.getBoolean(R.styleable.RevealSwitch_setEnabled, false)
-        val duration = typedArray.getInteger(R.styleable.RevealSwitch_setAnimationDuration, 500)
-        if (duration > 1500 || duration < 500) {
+        animDuration = typedArray.getInteger(R.styleable.RevealSwitch_setAnimationDuration,
+                500)
+        isborderEnabled = typedArray.getBoolean(R.styleable.RevealSwitch_showBorder, false)
+        borderColor = typedArray.getColor(
+                R.styleable.RevealSwitch_borderColor,
+                0
+        )
+        if (animDuration > 1500 || animDuration < 500) {
             throw IllegalArgumentException("duration must be between 500 to 1500")
         } else {
-            setAnimationDuration(duration)
+            setAnimationDuration(animDuration)
         }
         setAnimationDuration(animDuration)
         setEnable(isEnable)
@@ -102,6 +113,7 @@ class RevealSwitch @JvmOverloads constructor(
     private fun revealEnableTrackAnimation() {
         isEnable = true
         unCheckedView.visibility = View.INVISIBLE
+        showBorderIfEnabled(disabledTrackColor, borderColor)
         revealSwitchContainer.background.setColorFilter(disabledTrackColor, PorterDuff.Mode.SRC_ATOP)
         checkedView.visibility = View.VISIBLE
         val x: Int = unCheckedThumb.left + unCheckedThumb.width / 2
@@ -132,6 +144,7 @@ class RevealSwitch @JvmOverloads constructor(
     private fun revealDisableTrackAnimation() {
         isEnable = false
         checkedView.visibility = View.INVISIBLE
+        showBorderIfEnabled(enabledTrackColor, borderColor)
         revealSwitchContainer.background.setColorFilter(enabledTrackColor, PorterDuff.Mode.SRC_ATOP)
         unCheckedView.visibility = View.VISIBLE
         val x: Int = checkedThumb.right - checkedThumb.width / 2
@@ -164,8 +177,22 @@ class RevealSwitch @JvmOverloads constructor(
         isEnable = isChecked
         if (isEnable) {
             unCheckedView.visibility = View.INVISIBLE
+            showBorderIfEnabled(disabledTrackColor, borderColor)
         } else {
             unCheckedView.visibility = View.VISIBLE
+            showBorderIfEnabled(enabledTrackColor, borderColor)
+        }
+    }
+
+    private fun showBorderIfEnabled(color: Int, borderColor: Int?) {
+        if (isborderEnabled) {
+            if (borderColor == 0) {
+                border.setStroke(4, color)
+            } else {
+                border.setStroke(4, borderColor!!)
+            }
+        } else {
+            border.setStroke(0, color)
         }
     }
 }
